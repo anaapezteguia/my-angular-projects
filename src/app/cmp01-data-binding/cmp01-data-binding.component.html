@@ -1,0 +1,24 @@
+<h2>Data binding</h2>
+
+<h3>String Interpolation</h3>
+<p>My name is {{ user.name }}</p>
+<p>Hello {{ nombre ? nombre : "world" }}</p>
+<p>Hello {{ getName() }}</p>
+
+<h3>Property Binding</h3>
+<input type="text" [value]="user.email" />
+<img [src]="angularLogoUrl" alt="{{ imgName }} logo" width="200" />
+
+<h3>Event Binding</h3>
+<button type="button" (click)="resetEmail($event)">Reset email</button>
+
+<h3>Two Way Binding</h3>
+<input type="text" [(ngModel)]="user.email" />
+
+<input type="text" (keyup)="changeEmail($event)" [value]="user.email" />
+<input type="text" (input)="changeEmail($event)" [value]="user.email" />
+
+<select [(ngModel)]="pais">
+  <option value="spain">Spain</option>
+  <option value="france">France</option>
+</select>

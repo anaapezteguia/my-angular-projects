@@ -1,0 +1,101 @@
+<h2>Directivas</h2>
+
+<h3>De atributo</h3>
+<p [ngStyle]="{ textDecoration: 'underline', backgroundColor: color }">
+  Un párrafo subrayado y con el color de fondo que sale del input de abajo.
+</p>
+<!-- <p [ngStyle]="getStyles()">
+  Otro párrafo subrayado y con el color de fondo que sale del input de abajo.
+</p>
+<p [ngStyle]="styles">
+  Otro párrafo subrayado y con el color de fondo que sale del input de abajo
+  mediante getter.
+</p> -->
+<p
+  [ngClass]="{ letraNaranja: true, tachado: tachado }"
+  (click)="tachado = !tachado"
+>
+  Este párrafo tienen la letra de color naranja y aparece tachado.
+</p>
+
+<input type="color" [(ngModel)]="color" />
+
+<p appMarcar>Pasa el ratón por encima para pintarlo.</p>
+
+<p appMarcar="pink">Pasa el ratón por encima para pintarlo.</p>
+<p [appMarcar]="color">Pasa el ratón por encima para pintarlo.</p>
+
+<h3>Estructurales</h3>
+
+<!-- 
+  //01. Dos botones
+  <button type="button" *ngIf="darkModeActivado" (click)="toggleDarkMode(false)">
+  Activar 🌞
+</button>
+<button type="button" *ngIf="!darkModeActivado" (click)="toggleDarkMode(true)">
+  Activar 🌜
+</button> -->
+
+<!-- 
+  //02. Un botón y un contenedor con template
+  <button
+  type="button"
+  *ngIf="darkModeActivado; else parteElse"
+  (click)="toggleDarkMode(false)"
+>
+  Activar 🌞
+</button>
+<ng-template #parteElse>
+  <button type="button" (click)="toggleDarkMode(true)">Activar 🌜</button>
+</ng-template> -->
+
+<!-- //03. Dos contenedores -->
+<div *ngIf="darkModeActivado; then parteIf; else parteElse"></div>
+
+<ng-template #parteIf>
+  <button type="button" (click)="toggleDarkMode(false)">Activar 🌞</button>
+</ng-template>
+<ng-template #parteElse>
+  <button type="button" (click)="toggleDarkMode(true)">Activar 🌜</button>
+</ng-template>
+<div [ngStyle]="{ display: 'flex', justifyCOntent: 'space-evenly' }">
+  <app-sugus *ngFor="let sugus of listaSugus" [sugus]="sugus"></app-sugus>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nº</th>
+      <th>Concepto</th>
+      <th>Cantidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let dato of listaIngresosGastos;
+        let pos = index;
+        let filaPar = even;
+        let filaImpar = odd;
+        let esPrimera = first;
+        let esUltima = last;
+        let numFilas = count
+      "
+      [ngClass]="{
+        filaPar: filaPar,
+        primeraFila: esPrimera,
+        ultimaFila: esUltima
+      }"
+    >
+      <td>{{ pos + 1 }}/ {{ numFilas }}</td>
+      <td>{{ dato.concepto }}</td>
+      <td>{{ dato.cantidad }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div [ngSwitch]="color">
+  <p *ngSwitchCase="'#ffffff'">El color es blanco</p>
+  <p *ngSwitchCase="'#000000'">El color es negro</p>
+  <p *ngSwitchDefault>El color es otro</p>
+</div>
