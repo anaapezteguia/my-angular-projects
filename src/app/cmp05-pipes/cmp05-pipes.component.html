@@ -1,11 +1,12 @@
 <h2>Pipes</h2>
 
-<div>
+<button type="button" (click)="count = count + 1">Cuenta: {{ count }}</button>
+<!-- <div>
   <h3>{{ producto.nombre }}</h3>
   <p>{{ producto.descripcion }}</p>
   <p>Precio: {{ producto.precio }}</p>
   <p>Fecha de compra: {{ producto.fechaDeCompra }}</p>
-</div>
+</div> -->
 
 <div>
   <!-- <h3>{{ producto.nombre | uppercase | titlecase }}</h3> -->
@@ -18,3 +19,15 @@
 <pre>{{ producto | json }}</pre>
 
 <p>Mensaje: {{ mensaje | async }}</p>
+
+<input type="text" (change)="addProducto($event)" />
+<ul>
+  <li *nFor="let producto of productos">{{ producto }}</li>
+</ul>
+
+<input type="text" [(ngModel)]="textoFiltro" />
+<ul>
+  <li *nFor="let producto of productos | filtro: textoFiltro">
+    {{ producto }}
+  </li>
+</ul>
