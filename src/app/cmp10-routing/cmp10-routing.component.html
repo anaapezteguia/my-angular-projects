@@ -1,0 +1,19 @@
+<h2>Routing</h2>
+<!-- routerLink no refresca los archivos y funciona como el href y es angular quien maneja el SPA -->
+<ul>
+  <li>
+    <a routerLink="/">Usuarios</a>
+  </li>
+  <li>
+    <a routerLink="/nuevo-usuario">Nuevo usuario</a>
+    <!-- <a [routerLink]="['/nuevo-usuario', usuario.id, 'info']">Nuevo usuario</a> -->
+  </li>
+  <li>
+    <a routerLink="/usuarios/3">Usuario 3</a>
+  </li>
+  <li>
+    <a routerLink="/usuarios/5">Usuario 5</a>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>

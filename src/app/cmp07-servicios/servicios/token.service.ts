@@ -6,8 +6,15 @@ import { EventosService } from './eventos.service';
 })
 export class TokenService {
   private KEY: string = 'jwt';
+  usuarioLogueado = new EventEmitter<boolean>();
 
-  constructor(private eventosService: EventosService) {}
+  usuarioLogueado$: BehaviorSubject<boolean>;
+
+  // constructor(private eventosService: EventosService) {}
+  constructor(private tokenService: TokenService) {
+    const token = tokenService.getToken();
+    this.usuarioLogueado$ = new BehaviorSubject<boolean>(token ? true : false);
+  }
 
   getToken(): string | null {
     return localStorage.getItem(this.KEY);
@@ -15,11 +22,11 @@ export class TokenService {
 
   setToken(token: string) {
     localStorage.setItem(this.KEY, token);
-    this.eventosService.usuarioLogueado.emit(true);
+    // this.eventosService.usuarioLogueado.emit(true);
   }
 
   delToken() {
     localStorage.removeItem(this.KEY);
-    this.eventosService.usuarioLogueado.emit(false);
+    // this.eventosService.usuarioLogueado.emit(false);
   }
 }

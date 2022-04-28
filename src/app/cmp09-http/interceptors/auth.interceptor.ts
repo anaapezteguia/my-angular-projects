@@ -3,16 +3,31 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { TokenService } from 'src/app/cmp07-servicios/servicios/token.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(private tokenService: TokenService) {}
 
-  constructor() {}
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    const token = this.tokenService.getToken();
+    if (token) {
+      const newHeaders = request.headers.append('Authorization', '1234');
+      const newRequest = request.clone({ headers: newHeaders });
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+      return next.handle(newRequest);
+    }
     return next.handle(request);
+    //   .pipe(
+    //   tap((resp: any) => {
+    //     console.log('Respuesta: ', resp);
+    //   })
+    // );
   }
 }

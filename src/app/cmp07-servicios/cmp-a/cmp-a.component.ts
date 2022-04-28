@@ -20,9 +20,12 @@ export class CmpAComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = this.datosService.getItems();
-    this.isLoggedIn = this.tokenService.getToken() ? true : false;
+    // this.isLoggedIn = this.tokenService.getToken() ? true : false;
     // esto se queda escuchando para siempre hasta que noss dessuscribamos
-    this.eventosService.usuarioLogueado.subscribe((logueado: boolean) => {
+    // this.eventosService.usuarioLogueado.subscribe((logueado: boolean) => {
+    //   this.isLoggedIn = logueado;
+    // });
+    this.eventosService.usuarioLogueado$.subscribe((logueado: boolean) => {
       this.isLoggedIn = logueado;
     });
   }
